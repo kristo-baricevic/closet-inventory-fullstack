@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "Hash": "3T9RCPL4N9PkqRl17L6SH87QZ9mMtg4rLkaelcXCI6Q=",
+  "Source": "closet",
+  "BasePath": "_content/closet",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "closet/wwwroot",
+      "Source": "closet",
+      "ContentRoot": "/Users/kristo/closet/wwwroot/",
+      "BasePath": "_content/closet",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/kristo/closet/wwwroot/index.html",
+      "SourceId": "closet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristo/closet/wwwroot/",
+      "BasePath": "_content/closet",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/index.html"
+    },
+    {
+      "Identity": "/Users/kristo/closet/wwwroot/main.js",
+      "SourceId": "closet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristo/closet/wwwroot/",
+      "BasePath": "_content/closet",
+      "RelativePath": "main.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/main.js"
+    },
+    {
+      "Identity": "/Users/kristo/closet/wwwroot/main.py",
+      "SourceId": "closet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristo/closet/wwwroot/",
+      "BasePath": "_content/closet",
+      "RelativePath": "main.py",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/main.py"
+    },
+    {
+      "Identity": "/Users/kristo/closet/wwwroot/styles.css",
+      "SourceId": "closet",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/kristo/closet/wwwroot/",
+      "BasePath": "_content/closet",
+      "RelativePath": "styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/styles.css"
+    }
+  ]
+}

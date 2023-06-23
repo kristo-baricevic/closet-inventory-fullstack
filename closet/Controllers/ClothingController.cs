@@ -1,39 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
+using System.Threading.Tasks;
 using ClothingInventory.Models;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
 
-
-
 namespace ClothingInventory.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class ImageController : ControllerBase
+    [Route("api/[controller]")]
+    public class UploadController : ControllerBase
     {
         private readonly ClothingInventoryContext _dbContext;
 
-        public ImageController(ClothingInventoryContext dbContext)
+        public UploadController(ClothingInventoryContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         [HttpPost]
-        public ActionResult UploadImage([FromForm] string category, [FromForm] IFormFile imageFile)
+        public async Task<IActionResult> Upload()
         {
-            if (imageFile != null && imageFile.Length > 0)
+            try
             {
-                try
+                var category = Request.Form["category"];
+                var imageFile = Request.Form.Files["imageFile"];
+
+                if (imageFile != null && imageFile.Length > 0)
                 {
-                    // Read the image file into a byte array
                     using (var memoryStream = new MemoryStream())
                     {
-                        imageFile.CopyTo(memoryStream);
+                        await imageFile.CopyToAsync(memoryStream).ConfigureAwait(false);
                         var imageBytes = memoryStream.ToArray();
 
                         // Preprocess the image
@@ -49,35 +49,32 @@ namespace ClothingInventory.Controllers
                         return Ok(new { category = predictedCategory });
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Return an error message as JSON
-                    return BadRequest(new { error = "Error loading or processing image: " + ex.Message });
+                    return BadRequest(new { error = "No image selected" });
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // Return an error message as JSON
-                return BadRequest(new { error = "No image selected" });
+                Console.WriteLine(ex);
+                return BadRequest(new { error = "Error loading or processing image: " + ex.Message });
             }
         }
 
-
-private byte[] PreprocessImage(IFormFile imageFile)
-{
-    using (var image = Image.Load(imageFile.OpenReadStream()))
-    {
-        // Perform image processing logic here using the `image` object
-        // You can use methods like Resize, Crop, Rotate, etc. from the `ImageSharp` library
-
-        using (var processedImage = new MemoryStream())
+        private byte[] PreprocessImage(IFormFile imageFile)
         {
-            image.Save(processedImage, new JpegEncoder()); // Save the processed image to the stream
-            return processedImage.ToArray(); // Convert the processed image to a byte array
-        }
-    }
-}
+            using (var image = Image.Load(imageFile.OpenReadStream()))
+            {
+                // Perform image processing logic here using the `image` object
+                // Example: Resize, Crop, Rotate, etc.
 
+                using (var processedImage = new MemoryStream())
+                {
+                    image.Save(processedImage, new JpegEncoder()); // Save the processed image to the stream
+                    return processedImage.ToArray(); // Convert the processed image to a byte array
+                }
+            }
+        }
 
         private string ClassifyCategory(string category)
         {

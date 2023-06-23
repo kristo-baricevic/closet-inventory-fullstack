@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classification</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Image Classification</h1>
+    
+    <form id="imageForm">
+        <label for="category">Category:</label>
+        <select id="category" required>
+            <option value="Top">Top</option>
+            <option value="Bottom">Bottom</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Hat">Hat</option>
+            <option value="Accessory">Accessory</option>
+        </select>
+        
+        <input type="file" id="imageFile" accept=".jpg,.jpeg,.png,.gif" required>
+        <button id="classifyButton">Classify Image</button>
+    </form>
+    
+    <p id="resultLabel"></p>
+    
+    <script src="main.js"></script>
+</body>
+</html>
