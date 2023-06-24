@@ -11,7 +11,7 @@ using ClothingInventory.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ClothingInventoryContext>(options => 
     options.UseSqlServer(connectionString));
