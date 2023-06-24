@@ -25,10 +25,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --project closet/closet.csproj
+        run: dotnet build --configuration Release --no-restore closet/closet.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o closet/publish --project closet/closet.csproj
+        run: dotnet publish -c Release -o closet/publish --no-restore closet/closet.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
