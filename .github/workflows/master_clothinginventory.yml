@@ -26,7 +26,8 @@ jobs:
         run: dotnet build --configuration Release ./closet/closet.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o closet/publish --no-restore ./closet/publish
+        run: dotnet publish -c Release -o ./closet/publish --no-restore ./closet/closet.csproj
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
