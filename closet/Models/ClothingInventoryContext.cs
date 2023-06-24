@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using ClothingInventory.Models;
-//test
 
 
 namespace ClothingInventory.Models
