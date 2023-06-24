@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -26,6 +27,8 @@ namespace ClothingInventory.Controllers
         [HttpPost]
         public ActionResult Upload([FromForm] string category, [FromForm] IFormFile imageFile)
         {
+            Console.WriteLine("Upload endpoint called.");
+            
             if (imageFile != null && imageFile.Length > 0)
             {
                 try
