@@ -14,3 +14,16 @@ select, input[type="file"], button {
     text-align: center;
     font-weight: bold;
 }
+
+#imageContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#uploadedImage {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+

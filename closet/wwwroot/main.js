@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageFileInput = document.querySelector('#imageFile');
     const classifyButton = document.querySelector('#classifyButton');
     const resultLabel = document.querySelector('#resultLabel');
+    const uploadedImage = document.querySelector('#uploadedImage');
 
     classifyButton.addEventListener('click', () => {
         const category = categoryDropdown.value;
@@ -20,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (response.ok) {
                     resultLabel.textContent = 'Image uploaded successfully';
+
+                    // Update the image source
+                    uploadedImage.src = URL.createObjectURL(imageFile);
+                    uploadedImage.style.display = 'block'; 
                 } else {
                     resultLabel.textContent = 'Error uploading image';
                 }

@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Threading.Tasks;
 using ClothingInventory.Models;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
+
+
 
 namespace ClothingInventory.Controllers
 {
@@ -22,18 +24,16 @@ namespace ClothingInventory.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload()
+        public ActionResult Upload([FromForm] string category, [FromForm] IFormFile imageFile)
         {
-            try
+            if (imageFile != null && imageFile.Length > 0)
             {
-                var category = Request.Form["category"];
-                var imageFile = Request.Form.Files["imageFile"];
-
-                if (imageFile != null && imageFile.Length > 0)
+                try
                 {
+                    // Read the image file into a byte array
                     using (var memoryStream = new MemoryStream())
                     {
-                        await imageFile.CopyToAsync(memoryStream).ConfigureAwait(false);
+                        imageFile.CopyTo(memoryStream);
                         var imageBytes = memoryStream.ToArray();
 
                         // Preprocess the image
@@ -49,32 +49,35 @@ namespace ClothingInventory.Controllers
                         return Ok(new { category = predictedCategory });
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    return BadRequest(new { error = "No image selected" });
+                    // Return an error message as JSON
+                    return BadRequest(new { error = "Error loading or processing image: " + ex.Message });
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex);
-                return BadRequest(new { error = "Error loading or processing image: " + ex.Message });
+                // Return an error message as JSON
+                return BadRequest(new { error = "No image selected" });
             }
         }
 
-        private byte[] PreprocessImage(IFormFile imageFile)
+
+private byte[] PreprocessImage(IFormFile imageFile)
+{
+    using (var image = Image.Load(imageFile.OpenReadStream()))
+    {
+        // Perform image processing logic here using the `image` object
+        // You can use methods like Resize, Crop, Rotate, etc. from the `ImageSharp` library
+
+        using (var processedImage = new MemoryStream())
         {
-            using (var image = Image.Load(imageFile.OpenReadStream()))
-            {
-                // Perform image processing logic here using the `image` object
-                // Example: Resize, Crop, Rotate, etc.
-
-                using (var processedImage = new MemoryStream())
-                {
-                    image.Save(processedImage, new JpegEncoder()); // Save the processed image to the stream
-                    return processedImage.ToArray(); // Convert the processed image to a byte array
-                }
-            }
+            image.Save(processedImage, new JpegEncoder()); // Save the processed image to the stream
+            return processedImage.ToArray(); // Convert the processed image to a byte array
         }
+    }
+}
+
 
         private string ClassifyCategory(string category)
         {
