@@ -25,10 +25,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --project closet/closet.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o closet/publish
+        run: dotnet publish -c Release -o closet/publish --project closet/closet.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -56,4 +56,4 @@ jobs:
           app-name: 'clothinginventory'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7AA3A6C9095B406F8C22DFEC74C0007C }}
-          package: .
+          package: 'closet/publish'
