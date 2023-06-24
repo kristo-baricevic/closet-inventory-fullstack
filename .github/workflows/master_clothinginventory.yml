@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: 'closet/closet.csproj'
+          path: 'closet'
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: closet/closet.csproj
+          path: closet/publish
 
   deploy:
     runs-on: ubuntu-latest
