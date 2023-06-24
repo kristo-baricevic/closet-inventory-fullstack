@@ -55,4 +55,4 @@ jobs:
           app-name: 'clothinginventory'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7AA3A6C9095B406F8C22DFEC74C0007C }}
-          package: './closet/publish/**'
+          package: './closet/publish.closet.csproj'
