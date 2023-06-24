@@ -41,7 +41,7 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.8, )"
+              "version": "[8.0.0-preview.5.23280.1, )"
             },
             "SixLabors.ImageSharp": {
               "target": "Package",
