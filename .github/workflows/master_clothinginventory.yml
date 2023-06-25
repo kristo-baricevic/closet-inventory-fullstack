@@ -28,11 +28,14 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ./closet/publish --no-restore ./closet/closet.csproj
 
+      - name: Create zip file
+        run: zip -r app.zip ./closet/publish
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ./closet/publish
+          path: app.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,6 +60,4 @@ jobs:
       with:
           azcliversion: 2.19.1
           inlineScript: |
-            az extension add --name appservice-kube
-            az webapp deployment --name 'clothinginventory' --resource-group 'apps' --type zip --src-path ./net-app/* 
-
+            az webapp deployment source config-zip --name 'clothinginventory' --resource-group 'apps' --src app.zip
