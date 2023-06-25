@@ -57,5 +57,5 @@ jobs:
       with:
           azcliversion: 2.19.1
           inlineScript: |
-            az webapp deploy --name clothinginventory --resource-group apps --type zip --src-path ./net-app/*
+            az webapp deployment --name 'clothinginventory' --resource-group 'apps' --type zip --src-path ./net-app/* 
 
