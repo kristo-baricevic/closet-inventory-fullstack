@@ -42,33 +42,19 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Install Azure CLI
-        run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
+    - name: Install Azure CLI
+      run: |
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
           azcliversion: 2.19.1
           inlineScript: |
+            az webapp deploy --name clothinginventory --resource-group apps --type zip --src-path ./net-app/*
 
-            az extension add --name webapp
-
-            az storage account create -n 'Azure subscription 1' -g 'apps' -l westus
-            az storage container create -n 'private-endpoint-nic' --account-name 'Azure subscription 1'
-            az storage blob upload -f ${{ github.workspace }}/closet/publish/* --account-name 'Azure subscription 1' -c 'private-endpoint-nic' -n app.zip
-
-            ZIP_URL=$(az storage blob generate-sas --account-name 'Azure subscription 1' -c 'private-endpoint-nic' -n app.zip --permissions r --expiry ${{ env.EXPIRY_TIME }} --full-uri | xargs)
-
-            az webapp deploy --name 'clothinginventory' --resource-group 'apps' --type zip --src-url $ZIP_URL --async false
-
-            az storage container delete -n 'private-endpoint-nic' --account-name 'Azure subscription 1'
