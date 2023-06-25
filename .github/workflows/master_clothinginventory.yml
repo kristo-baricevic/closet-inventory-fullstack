@@ -60,4 +60,5 @@ jobs:
       with:
           azcliversion: 2.19.1
           inlineScript: |
+            az login
             az webapp deployment source config-zip --name 'clothinginventory' --resource-group 'apps' --src app.zip
