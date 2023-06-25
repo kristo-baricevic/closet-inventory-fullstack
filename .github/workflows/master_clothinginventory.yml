@@ -55,6 +55,6 @@ jobs:
           app-name: 'clothinginventory'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7AA3A6C9095B406F8C22DFEC74C0007C }}
-          path: './closet/publish'
+          publish: './closet/publish'
           username: ${{ secrets.AZURE_USERNAME }}
           password: ${{ secrets.AZURE_PASSWORD }}
